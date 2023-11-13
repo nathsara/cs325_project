@@ -1,0 +1,96 @@
+Citation Reference
+Caching in Python Using the LRU Cache Strategy
+
+
+Caching is an optimization technique to keep recently used data in memory locations that is either (a) faster or (b) computationally cheaper to access.
+The basic premise of caching is to store data that has been accessed in some local place. However, such an implementation implies that the caching list grows indefinitely, and will eventually become just as slow/computationally expensive as formally retrieving data. Caching strategies are algorithms that manage cached data and determine which information to save and which to discard to make room for new data.
+Summary of common caching strategies:
+First-In/First-Out (FIFO) – removes the oldest entry; assumes the newest entry is most likely to be reused. (implement using queue)
+Last-In/First-Out (LIFO) – removes the latest entry; assumes the oldest entry is most likely to be reused. (implement using stack)
+Least Recently Used (LRU) – removes the least recently reused entry; assumes it is least likely to be reused. 
+Most Recently Used (MRU) – removes the most recently reused entry; assumes it is least likely to be reused.
+Least Frequently Used (LFU) – removes the least accessed entry; assumes entries that have been used more often are more likely to be reused.
+Formally, these removal algorithms are called replacement policies.
+Least Recently Used strategy details:
+Automatically organizes items in order of use; everytime you access an entry, the algorithm moves it up to the top of the cache. When it comes time to remove an entry, the algorithm can just look at the bottom of the list.
+Implementation: using a combination of a doubly-linked list and a hash map.
+Time Complexity: O(1) – fast!
+
+Performance Evaluation for New Web Caching Strategies Combining LRU with Score Based Object Selection
+
+Terminology:
+LRU – refers to the Least Recently Used algorithm; when the cache memory is full, LRU removes the data that was least recently used to make space for new data.
+
+Hit Rate – the number of cache hits divided by the number of memory requests made to the cache during a specified time.
+A cache hit occurs whenever a data request is satisfied by the cache rather than having to be retrieved from the original server.
+Miss Rate – the number of total cache misses divided by the total number of memory requests made to the cache
+
+Class of Score Gated LRU (CG-LRU) – combines the simple update effort of the LRU policy with the flexibility to keep the most important content in the cache according to a predefined score function.
+A score function (also called an informant) can be used to estimate the parameters of a known probability distribution.
+
+Independent Request Model (IRM) – a conceptual model used in the analysis of storage systems. 
+
+Abstract Summary: This paper evaluates the performance of the CG-LRU algorithm via simulations assuming the Zipf request pattern (the value of the nth entry is inversely proportional to n). It analyzes the hit rate of alternative web caching strategies as opposed to pure LRU for the standard IRM; the results suggest an absolute hit rate gain of 10-20% over pure LRU.
+
+cannot replicate; no institutional access to IEEE XPlore.
+
+Cache Replacement Policies (ScienceDirect)
+Shares several relatively recent papers on replacement policies, 
+
+Performance Evaluation of Cache Replacement Policies for the SPEC CPU2000 Benchmark Suite
+(ACM link to same paper:)
+
+This paper looks to find the most optimal cache replacement policy by using the SimpleScalar toolset and the SPEC CPU2000 Benchmark Suite.
+Strategies evaluated: Random, LRU, Round-Robin (FIFO), PLRU (pseudo-LRU)
+Results show that PLRU techniques can approximate and even outperform LRU with much lower time complexity. 
+Introduction:
+“An ever-increasing speed gap between processor and memory emphasizes the need for more efficient memory hierarchy”
+“An optimal replacement (OPT) algorithm would require the perfect knowledge of future block references, making such an implementation impossible. Instead, heuristics must be used to determine which data are least likely and most likely to be referenced.” 
+
+A older paper about a modern method of measuring cache performance regardless of caching strategy (LRU, LFU, etc) and the problems with previous methods of measurement for each strategy.
+
+Thoroughly defines hit-rate, miss-rate, and how to calculate these mathematically.
+
+Caching Best Practices | Amazon Web Services
+Legibly defines Cache-Aside/Lazy-Caching and Write-Through caching, as well as several caching pitfalls such as cache expiration (and time-to-live), evictions, and dog-piling. Also explains advantages of both caching types.
+Lazy-Caching
+Most common form of caching.
+Built upon “laziness;” only caches new items when there are cache-misses.
+Write-Through
+Updated in real time alongside the database it is associated with.
+Because of this, it is built to avoid cache-misses.
+Cache is updated easily.
+Cache Eviction
+Occurs when there is no more space in a cache but more information is written to it anyway, causing some old data to be overwritten.
+Which data is evicted is based on the Eviction-Policy in use for the given data. This more often than not coincides with replacement policies (LFU, LRU, etc).
+Cache Expiration
+Cache data may have Time-to-Live, which is an amount of time until the data in the cache will expire and be removed. This is optimal; it allows for the cache to update and therefore reduces bugs.
+Time-to-Live is ideal for caches of information that frequently update to keep them up to date and working properly.
+Dog-Piling
+An issue that may grow worse due to excessive use of Time-to-Live due to its relationship with the way lazy-caching handles cache-misses.
+Occurs when there are mass amounts of cache-misses on data, which results in a subsequent mass amount of queries on the information. Also may occur with new cache nodes.
+
+Hit Rate LRU & LRFU Comparison between LRFU and LRU based on different... | Download Scientific Diagram
+“Hit Rate LRU & LRFU Comparison between LRFU and LRU based on different cache size and total number of generated interests shows in fig.6. LRFU replacement policy achieved a higher hit rate for any cache size modification and number of interest generated.” * LRFU is a combination of Least Frequently Used and Least Recently Used.
+
+
+
+3 primary methods for performance estimation of caching strategies 
+Simulation using request traces
+Simulation of randomly generated requests
+Analytical analysis
+Shape parameter, β, of the Zipf distribution and the ratio(M/N) of the cache size to the size of the object catalog ended up having the most impact on hit rates and the difference in the performance of caching strategies
+Evaluation For Traces of Web Requests
+After comparison of least frequently used(LFU) and least recently used(LRU), the evaluation found LFU variants over a limited time frame are more efficient. 
+Time frame was from an hour to a day
+Results for evaluation for traces of web requests confirmed LFU based on daily statistics is close to optimum for non-predictive caching strategies, but still leaves a large gap towards clairvoyant optimum caching. 
+Performance Comparison of Web Caching Strategies
+Includes trace based evaluations from F-Secure’s caching platform to validate the accuracy of simulations under the independent reference model.
+The LRU keeps the most recently requested item in a cache size(M). It is widely used because of its simple implementation and updates. 
+The requested item is put at the top of the stack and is organized as a double chained list. The bottom object of the cache is evicted in case of a cache miss.
+Leads to low constant effort to update the stack
+The achievable LRU hit rate is low because relevant information for predicting the next request is not fully put to use 
+The LFU put the objects with the highest request count into the cache so it will have statistics on past requests per object
+Can be implemented as a sorted list of N items 
+Simulations were conducted to evaluate the performance of limited look-ahead caching for different cache sizes and limits
+
