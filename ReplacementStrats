@@ -1,0 +1,77 @@
+package CS325;
+
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.LinkedList;
+
+
+public class ReplacementStrats {
+   public static void main(String[] args) throws FileNotFoundException {
+   
+   Scanner stdin = new Scanner(new File("C:\Users\lvj36099\Code\CS325\dataSet.txt"));
+   
+   String[] data = new String[1296];
+   
+   for(int i = 0; stdin.hasNext(); i++) {
+      
+      data[i] = stdin.next();
+     
+   }
+   
+   double hitRate1 = mostFreq(data);
+   
+   double hitRate2 = leastFreq(data);
+   
+   System.out.print("HR 1: " + hitRate1 * 100 + "%   HR 2: " + hitRate2 * 100 + "%");
+   
+   }
+   
+   public static double leastFreq(String[] data){
+      LinkedList<String> cache = new LinkedList<String>();
+      
+      double hit = 0;
+      for(int i = 0; i < 750; i++) {
+         int index = (int)(Math.random() * 1296);
+         String d = data[index];
+         if(cache.contains(d)) {
+            hit++;
+            cache.remove(d);
+            cache.add(d);
+            continue;
+         }
+         if(cache.size() < 100) {
+            cache.add(d);
+         } else {
+            cache.poll();
+            cache.add(d);
+         }
+         
+      }
+      return hit / 2000;
+   }
+   
+   public static double mostFreq(String[] data){
+      LinkedList<String> cache = new LinkedList<String>();
+      
+      double hit = 0;
+      for(int i = 0; i < 750; i++) {
+         int index = (int)(Math.random() * 1296);
+         String d = data[index];
+         if(cache.contains(d)) {
+            hit++;
+            cache.remove(d);
+            cache.push(d);
+            continue;
+         }
+         if(cache.size() < 100) {
+            cache.push(d);
+         } else {
+            cache.poll();
+            cache.push(d);
+         }
+         
+      }
+      return hit / 2000;
+   }
+}
