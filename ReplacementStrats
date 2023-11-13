@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
 
-public class ReplacementStrats {
+public class Frequency {
    public static void main(String[] args) throws FileNotFoundException {
    
    Scanner stdin = new Scanner(new File("C:\Users\lvj36099\Code\CS325\dataSet.txt"));
@@ -48,7 +48,7 @@ public class ReplacementStrats {
          }
          
       }
-      return hit / 2000;
+      return hit / 750;
    }
    
    public static double mostFreq(String[] data){
@@ -72,6 +72,6 @@ public class ReplacementStrats {
          }
          
       }
-      return hit / 2000;
+      return hit / 750;
    }
 }
