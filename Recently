@@ -19,15 +19,15 @@ public class Frequency {
      
    }
    
-   double hitRate1 = mostFreq(data);
+   double hitRate1 = mostRec(data);
    
-   double hitRate2 = leastFreq(data);
+   double hitRate2 = leastRec(data);
    
    System.out.print("HR 1: " + hitRate1 * 100 + "%   HR 2: " + hitRate2 * 100 + "%");
    
    }
    
-   public static double leastFreq(String[] data){
+   public static double leastRec(String[] data){
       LinkedList<String> cache = new LinkedList<String>();
       
       double hit = 0;
@@ -51,7 +51,7 @@ public class Frequency {
       return hit / 750;
    }
    
-   public static double mostFreq(String[] data){
+   public static double mostRec(String[] data){
       LinkedList<String> cache = new LinkedList<String>();
       
       double hit = 0;
