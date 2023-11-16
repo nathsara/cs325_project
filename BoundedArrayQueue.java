@@ -87,10 +87,4 @@ public class BoundedArrayQueue<T> implements QueueInterface<T> {
       // Add the new word to the end of the queue
       enqueue((T) word);
    }
-
-   public void displayCache() {
-      for (int i = 0; i < numOfElements; i++) {
-         System.out.println(elements[(front + i) % elements.length]);
-      }
-   }
 }
