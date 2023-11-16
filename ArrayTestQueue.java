@@ -1,8 +1,10 @@
 package cs325;
 
 import java.io.File;
+import java.util.List;
 import java.util.Scanner;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ArrayTestQueue {
    public static void main(String[] args) {
@@ -16,10 +18,26 @@ public class ArrayTestQueue {
       try {   
          File csData = new File("/Users/delaneyflaherty/Downloads/dataset_cs325.txt");
          Scanner scan = new Scanner(csData);
+
+          //list to store all words from file
+         List<String> allWords = new ArrayList<>();
          
+         //reads words from file and adds them to list
          while(scan.hasNext()){
             String[] words = scan.next().split("\\s+");
             for (String word : words) {
+               allWords.add(word);
+            }
+         }
+         scan.close();
+         
+         int totalWords = allWords.size();
+         
+         //iterating for random pattern
+         for (int i = 0; i < 750; i++) {
+        	   int random = (int)(Math.random() * totalWords);
+        	   String word = allWords.get(random);
+             //checking if word is already in cache 
                try{
                   if(wordCache.contains(word)) {
                      hits++;
@@ -28,9 +46,7 @@ public class ArrayTestQueue {
                   }
                   wordCache.enqueue(word);
                }catch (QueueOverflowException ex) {
-            	   
                }
-            }
          }
          scan.close();
       }catch (IOException e) {
